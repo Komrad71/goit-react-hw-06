@@ -1,21 +1,30 @@
-import { FaPhoneAlt } from "react-icons/fa";
-import { FaUserAlt } from "react-icons/fa";
-import css from './Contact.module.css';
+import { FaPhoneAlt, FaUserAlt } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { deleteContact } from "../../redux/contactsSlice";
+import css from "./Contact.module.css";
 
-const Contact = ({ contact, onDelete }) => {
+const Contact = ({ contact: { id, name, number } }) => {
+  const dispatch = useDispatch();
+
   return (
     <div className={css.contact}>
       <div className={css.contactContainer}>
         <div className={css.contactWrapper}>
-          <FaPhoneAlt color="black" />
-          <p className={css.contactText}>{contact.name}</p>
+          <FaPhoneAlt color="#007bhf" />
+          <p className={css.contactText}>{name}</p>
         </div>
         <div className={css.contactWrapper}>
-          <FaUserAlt color="blue" />
-          <p className={css.contactText}> {contact.number}</p>
+          <FaUserAlt color="#007bhf" />
+          <p className={css.contactText}>{number}</p>
         </div>
       </div>
-      <button className={css.contactBtn} type="button" onClick={() => onDelete(contact.id)}>Delete</button>
+      <button
+        className={css.contactBtn}
+        type="button"
+        onClick={() => dispatch(deleteContact(id))}
+      >
+        Delete
+      </button>
     </div>
   );
 };
